@@ -1,0 +1,14 @@
+* Herencia de Modelos:
+    Se utiliza cuado quiero tener un molde de atributos
+    sin que estos se reflejen en una base de datos, es decir,
+    si la clase Student hereda de Person, solo guardaré la
+    clase student en la base de datos. Puede ser abstracta o
+    Multitabla
+
+* Herencia Multitabla:
+    Es la misma herencia que la abstracta pero la diferencia es que se
+    crea una tabla tanto para la clase padre como para la clase Hija.
+
+* Modelos Proxy:
+    Se utiliza cuando quiero extender funcionalidades de algún modelo
+    sin crear una nueva tabla, la única tabla creada es la clase padre.
