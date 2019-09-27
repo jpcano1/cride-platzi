@@ -20,8 +20,8 @@ from cride.users.models import User, Profile
 
 # Utilities
 from datetime import timedelta
-import jwt
-from jwt import *
+import jose
+from jose import *
 
 # Serializers
 from cride.users.serializers.profiles import ProfileModelSerializer
@@ -34,12 +34,12 @@ class AccountVerificationSerializer(serializers.Serializer):
     def validate_token(self, data):
         """ Verify token is valid """
         try:
-            payload = jwt.decode(data, settings.SECRET_KEY, algorithms=['HS256'])
+            payload = jose.decode(data, settings.SECRET_KEY, algorithms=['HS256'])
 
         except ExpiredSignatureError:
             """  """
             raise serializers.ValidationError("Verification link has expired.")
-        except PyJWTError:
+        except jose.PyJWTError:
             raise serializers.ValidationError("Invalid token")
 
         if payload['type'] != 'email_confirmation':
@@ -178,6 +178,6 @@ class UserSignUpSerializer(serializers.Serializer):
             'exp': int(exp_date.timestamp()),
             'type': 'email_confirmation'
         }
-        token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+        token = jose.encode(payload, settings.SECRET_KEY, algorithm='HS256')
         return token.decode()
 
